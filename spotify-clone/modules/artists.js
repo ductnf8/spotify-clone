@@ -1,6 +1,13 @@
 // File: modules/artists.js
 import httpRequest from '../utils/httpRequest.js';
 
+// window.addEventListener('artist:select', async (e) => {
+//     const artist = e.detail.artist;
+//     await updateArtistHero(artist);
+//     await loadAndFilterTracksForSelectedArtist(artist.id, false);
+//     hideHomeSections();
+// });
+
 // Formatting duration in seconds to MM:SS
 function formatDuration(seconds) {
     const minutes = Math.floor(seconds / 60);
@@ -24,7 +31,7 @@ export function initArtists() {
         artistsGrid.innerHTML = '<div class="loading">Loading artists...</div>';
 
         try {
-            const response = await httpRequest.get('artists/trending?limit=6');
+            const response = await httpRequest.get('artists/trending?limit=20');
             popularArtists = response.artists || [];
 
             if (popularArtists.length === 0) {
@@ -382,18 +389,20 @@ export function initArtists() {
 
     // Updating artist hero section
     async function updateArtistHero(artist) {
-        const heroBackground = document.querySelector('.hero-background img');
-        const artistNameEl = document.querySelector('.artist-name');
-        const monthlyListenersEl = document.querySelector('.monthly-listeners');
-        const verifiedBadge = document.querySelector('.verified-badge');
+        const heroSection = document.querySelector('.artist-hero');
+        if (!heroSection) return;
 
-        // Fetching artist details to ensure latest data
+        const heroBackground = heroSection.querySelector('.hero-background img');
+        const artistNameEl = heroSection.querySelector('.artist-name');
+        const monthlyListenersEl = heroSection.querySelector('.monthly-listeners');
+        const verifiedBadge = heroSection.querySelector('.verified-badge');
+
         let artistDetails;
         try {
             artistDetails = await httpRequest.get(`artists/${artist.id}`);
         } catch (error) {
             console.error('Error fetching artist details for hero:', error);
-            artistDetails = artist; // Fallback to cached data
+            artistDetails = artist; // fallback
         }
 
         if (heroBackground) heroBackground.src = artistDetails.background_image_url || artistDetails.image_url || 'placeholder.svg';
@@ -401,6 +410,7 @@ export function initArtists() {
         if (monthlyListenersEl) monthlyListenersEl.textContent = `${(artistDetails.monthly_listeners || 0).toLocaleString()} monthly listeners`;
         if (verifiedBadge) verifiedBadge.style.display = artistDetails.is_verified ? 'flex' : 'none';
     }
+
 
     // Binding play button to trigger first track
     const playBtnLarge = document.querySelector('.play-btn-large');

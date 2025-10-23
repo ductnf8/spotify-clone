@@ -1,4 +1,11 @@
 /* Layout Styles */
+html {
+    overflow-y: auto !important;
+}
+
+body {
+    overflow: visible !important;
+}
 
 .app-container {
     display: grid;
@@ -74,7 +81,8 @@
     border-radius: var(--radius-md);
     display: flex;
     flex-direction: column;
-    overflow: hidden;
+    overflow-y: hidden;
+    overflow-x: visible
 }
 
 .main-header {
@@ -153,6 +161,7 @@
     flex: 1;
     padding: 0 var(--spacing-lg) var(--spacing-lg);
     overflow-y: auto;
+    overflow-x: visible;
 }
 
 /* Player */
@@ -321,11 +330,44 @@
     background-clip: content-box;
 }
 
+/* Horizontal scroll cho hits */
 .hits-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-    gap: 1rem;
+    display: flex;
+    flex-wrap: nowrap;
+    gap: var(--spacing-lg);
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-behavior: smooth;
+    padding-bottom: var(--spacing-sm);
+    scrollbar-width: thin;
+    scrollbar-color: var(--accent-primary) var(--bg-tertiary);
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
 }
+
+.hits-grid::-webkit-scrollbar {
+    height: 8px;
+}
+
+.hits-grid::-webkit-scrollbar-track {
+    background: var(--bg-tertiary);
+    border-radius: 8px;
+}
+
+.hits-grid::-webkit-scrollbar-thumb {
+    background: var(--accent-primary);
+    border-radius: 8px;
+}
+
+.hits-grid::-webkit-scrollbar-thumb:hover {
+    background: var(--accent-hover);
+}
+
+.hit-card {
+    flex: 0 0 180px;
+    scroll-snap-align: start;
+}
+
 
 .hit-card.playing {
     background-color: var(--bg-active, #2a2a2a);
@@ -378,4 +420,14 @@
 .play-btn-large:hover {
     background-color: var(--accent-hover);
     transform: scale(1.05);
+}
+
+/* Horizontal layout cho albums giống hits và artists */
+.albums-grid {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: var(--spacing-lg);
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
 }

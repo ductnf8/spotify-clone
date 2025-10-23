@@ -481,67 +481,67 @@
 
 /* Progress bars */
 /* Progress bars - Simple & Clean */
-.progress-bar,
-.volume-bar {
-    position: relative;
-    height: 4px;
-    background-color: var(--bg-tertiary);
-    border-radius: 2px;
-    cursor: pointer;
-    transition: all var(--transition-fast);
-}
+/*.progress-bar,*/
+/*.volume-bar {*/
+/*    position: relative;*/
+/*    height: 4px;*/
+/*    background-color: var(--bg-tertiary);*/
+/*    border-radius: 2px;*/
+/*    cursor: pointer;*/
+/*    transition: all var(--transition-fast);*/
+/*}*/
 
-.progress-bar:hover,
-.volume-bar:hover {
-    height: 6px;
-}
+/*.progress-bar:hover,*/
+/*.volume-bar:hover {*/
+/*    height: 6px;*/
+/*}*/
 
-/* Progress fill - màu trắng mặc định, xanh khi hover/drag */
-.progress-fill,
-.volume-fill {
-    height: 100%;
-    background-color: var(--text-primary);
-    border-radius: 2px;
-    position: relative;
-    transition: background-color var(--transition-fast);
-    pointer-events: none;
-}
+/*!* Progress fill - màu trắng mặc định, xanh khi hover/drag *!*/
+/*.progress-fill,*/
+/*.volume-fill {*/
+/*    height: 100%;*/
+/*    background-color: var(--text-primary);*/
+/*    border-radius: 2px;*/
+/*    position: relative;*/
+/*    transition: background-color var(--transition-fast);*/
+/*    pointer-events: none;*/
+/*}*/
 
-/* Chuyển sang màu xanh khi hover hoặc drag */
-.progress-bar.hovering .progress-fill,
-.progress-bar.dragging .progress-fill {
-    background-color: var(--accent-primary);
-}
+/*!* Chuyển sang màu xanh khi hover hoặc drag *!*/
+/*.progress-bar.hovering .progress-fill,*/
+/*.progress-bar.dragging .progress-fill {*/
+/*    background-color: var(--accent-primary);*/
+/*}*/
 
+/*.progress-fill:hover*/
+/*    !* Progress handle *!*/
+/*.progress-handle,*/
+/*.volume-handle {*/
+/*    position: absolute;*/
+/*    top: 50%;*/
+/*    transform: translate(-50%, -50%);*/
+/*    width: 12px;*/
+/*    height: 12px;*/
+/*    background-color: var(--text-primary);*/
+/*    border-radius: var(--radius-full);*/
+/*    opacity: 0;*/
+/*    transition: opacity var(--transition-fast);*/
+/*    pointer-events: auto;*/
+/*    cursor: pointer;*/
+/*    z-index: 2;*/
+/*}*/
 
-/* Progress handle */
-.progress-handle,
-.volume-handle {
-    position: absolute;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    width: 12px;
-    height: 12px;
-    background-color: var(--text-primary);
-    border-radius: var(--radius-full);
-    opacity: 0;
-    transition: opacity var(--transition-fast);
-    pointer-events: auto;
-    cursor: pointer;
-    z-index: 2;
-}
+/*!* Hiển thị handle khi hover hoặc dragging *!*/
+/*.progress-bar:hover .progress-handle,*/
+/*.progress-bar.dragging .progress-handle,*/
+/*.volume-bar:hover .volume-handle {*/
+/*    opacity: 1;*/
+/*}*/
 
-/* Hiển thị handle khi hover hoặc dragging */
-.progress-bar:hover .progress-handle,
-.progress-bar.dragging .progress-handle,
-.volume-bar:hover .volume-handle {
-    opacity: 1;
-}
-
-/* Volume handle - giữ nguyên logic cũ */
-.volume-handle {
-    left: 70%;
-}
+/*!* Volume handle - giữ nguyên logic cũ *!*/
+/*.volume-handle {*/
+/*    left: 70%;*/
+/*}*/
 
 /* User avatar */
 .user-avatar {
@@ -709,7 +709,7 @@
 
 /* Invalid State */
 .form-group.invalid .form-input {
-    /*border-color: #f87171;*/
+    border-color: #f87171;
     background-color: var(--bg-tertiary);
 }
 
@@ -1524,4 +1524,112 @@
 
 .library-item img.item-image[style*="display: none"] + .item-icon.no-image {
     display: flex !important;
+}
+
+/* ===== Shared Horizontal Scroll Layout ===== */
+.hits-grid,
+.artists-grid,
+.albums-grid {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: var(--spacing-lg);
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-behavior: smooth;
+    padding-bottom: var(--spacing-sm);
+    scrollbar-width: thin; /* Firefox */
+    scrollbar-color: var(--accent-primary) var(--bg-tertiary);
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* Thanh cuộn ngang (Chrome/Safari) */
+.hits-grid::-webkit-scrollbar,
+.artists-grid::-webkit-scrollbar,
+.albums-grid::-webkit-scrollbar {
+    height: 8px;
+}
+
+.hits-grid::-webkit-scrollbar-track,
+.artists-grid::-webkit-scrollbar-track,
+.albums-grid::-webkit-scrollbar-track {
+    background: var(--bg-tertiary);
+    border-radius: 8px;
+}
+
+.hits-grid::-webkit-scrollbar-thumb,
+.artists-grid::-webkit-scrollbar-thumb,
+.albums-grid::-webkit-scrollbar-thumb {
+    background: var(--accent-primary);
+    border-radius: 8px;
+}
+
+.hits-grid::-webkit-scrollbar-thumb:hover,
+.artists-grid::-webkit-scrollbar-thumb:hover,
+.albums-grid::-webkit-scrollbar-thumb:hover {
+    background: var(--accent-hover);
+}
+
+/* Card cố định chiều rộng để cuộn đẹp */
+.hit-card,
+.artist-card,
+.album-card {
+    flex: 0 0 180px;
+    scroll-snap-align: start;
+    background-color: var(--bg-tertiary);
+    border-radius: var(--radius-md);
+    padding: var(--spacing-md);
+    transition: all var(--transition-fast);
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+
+.hit-card:hover,
+.artist-card:hover,
+.album-card:hover {
+    background-color: var(--bg-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+/* Hiển thị nút tròn của progress bar */
+/* Thanh progress-bar */
+.progress-bar {
+    position: relative;
+    height: 4px;
+    background-color: var(--bg-tertiary);
+    border-radius: 2px;
+    overflow: visible; /* ✅ Cho phép nút tròn hiển thị ra ngoài */
+    cursor: pointer;
+}
+
+/* Phần fill của thanh */
+.progress-fill {
+    height: 100%;
+    background-color: var(--accent-primary);
+    border-radius: 2px;
+}
+
+/* Nút tròn của thanh progress */
+.progress-handle {
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 12px;
+    height: 12px;
+    background-color: #ffffff; /* Màu trắng rõ nét */
+    border-radius: 50%; /* ✅ Làm nó tròn hoàn toàn */
+    cursor: pointer;
+    z-index: 2;
+    transition: transform 0.15s ease, opacity 0.2s ease;
+    opacity: 0; /* Ẩn khi không hover */
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.4); /* ✅ Bóng mờ giúp nổi bật hơn */
+}
+
+/* Khi hover hoặc kéo thanh, hiển thị nút tròn */
+.progress-bar:hover .progress-handle,
+.progress-bar.dragging .progress-handle {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.15); /* Tăng kích thước nhẹ */
 }

@@ -15,7 +15,7 @@ export function initHits() {
         hitsGrid.innerHTML = '<div class="loading">Loading hits...</div>';
 
         try {
-            const response = await httpRequest.get('tracks/trending?limit=6');
+            const response = await httpRequest.get('tracks/trending?limit=20');
             console.log('Hits API response:', response);
             tracksData = response.tracks || [];
 

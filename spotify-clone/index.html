@@ -49,8 +49,16 @@
             </div>
 
             <div class="library-content">
-                <!-- Nội dung playlist sẽ được tạo động từ main.js -->
+                <!-- Playlist được render động bởi playlist.js -->
             </div>
+
+            <div class="library-section">
+                <h3 class="section-subtitle">Followed Artists</h3>
+                <div class="followed-artists-list">
+                    <!-- Được render động bởi followedArtists.js -->
+                </div>
+            </div>
+
         </nav>
     </aside>
 
@@ -181,7 +189,9 @@
                 <div class="section-header">
                     <h2 class="section-heading">Popular albums</h2>
                 </div>
-                <div class="artists-grid" id="albumsGrid">
+                <!--                <div class="artists-grid" id="albumsGrid">-->
+                <div class="albums-grid" id="albumsGrid">
+
                     <div class="loading">Loading albums...</div>
                 </div>
             </section>
@@ -197,8 +207,8 @@
                         <i class="fas fa-check-circle"></i>
                         <span>Verified Artist</span>
                     </div>
-                    <h1 class="artist-name">Đen</h1>
-                    <p class="monthly-listeners">1,021,833 monthly listeners</p>
+                    <h1 class="artist-name"></h1>
+                    <p class="monthly-listeners"></p>
                 </div>
             </section>
 
@@ -369,7 +379,7 @@
             </form>
         </div>
     </div>
-    <div class="library-content"></div>
+    <!--    <div class="library-content"></div>-->
 
     <!-- Template menu (hidden) -->
     <template id="playlist-menu-template">
@@ -381,6 +391,15 @@
             <div class="menu-item delete-playlist" data-playlist-id="">
                 <span class="menu-icon"><i class="fas fa-trash"></i></span>
                 <span class="menu-text">Xóa playlist</span>
+            </div>
+        </div>
+    </template>
+
+    <template id="artist-menu-template">
+        <div class="playlist-menu artist-context-menu">
+            <div class="menu-item unfollow-artist">
+                <span class="menu-icon"><i class="fas fa-user-minus"></i></span>
+                <span class="menu-text">Unfollow</span>
             </div>
         </div>
     </template>

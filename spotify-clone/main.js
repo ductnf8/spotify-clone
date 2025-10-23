@@ -6,6 +6,7 @@ import {initArtists} from './modules/artists.js';
 import {initAlbums} from './modules/albums.js';
 import {initPlayer} from './modules/player.js';
 import {initPlaylist} from "./modules/playlist.js";
+import {initFollowedArtists} from "./modules/followedArtists.js";
 
 // Khởi tạo tất cả logic khi DOM load xong
 document.addEventListener("DOMContentLoaded", function () {
@@ -16,6 +17,7 @@ document.addEventListener("DOMContentLoaded", function () {
     initAlbums();
     initPlayer();
     initPlaylist();
+    initFollowedArtists()
 
     // Logic cho logo Spotify và button home: reset về home state
     const logo = document.querySelector('.logo i');

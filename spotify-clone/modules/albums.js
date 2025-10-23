@@ -24,7 +24,7 @@ export function initAlbums() {
         albumsGrid.innerHTML = '<div class="loading">Loading albums...</div>';
 
         try {
-            const response = await httpRequest.get('albums/popular?limit=6');
+            const response = await httpRequest.get('albums/popular?limit=20');
             popularAlbums = response.albums || [];
 
             if (popularAlbums.length === 0) {
@@ -227,19 +227,34 @@ export function initAlbums() {
 
     // Updating album hero section
     function updateAlbumHero(album) {
-        const heroBackground = document.querySelector('.hero-background img');
         const heroSection = document.querySelector('.artist-hero');
-        const albumTitleEl = document.querySelector('.artist-name');
-        const verifiedBadge = document.querySelector('.verified-badge');
+        if (!heroSection) return;
+
+        const heroBackground = heroSection.querySelector('.hero-background img');
+        const albumTitleEl = heroSection.querySelector('.artist-name');
+        const monthlyListenersEl = heroSection.querySelector('.monthly-listeners');
+        const verifiedBadge = heroSection.querySelector('.verified-badge');
         const verifiedBadgeIcon = verifiedBadge?.querySelector('i');
         const verifiedBadgeText = verifiedBadge?.querySelector('span');
 
-        if (heroBackground) heroBackground.src = album.cover_image_url || album.image_url || 'placeholder.svg';
-        if (albumTitleEl) albumTitleEl.textContent = album.title || 'Unknown Album';
-        if (verifiedBadge) verifiedBadge.style.display = album.is_verified ? 'flex' : 'none';
-        if (verifiedBadgeIcon) verifiedBadgeIcon.className = 'fas fa-check-circle';
+        // Cập nhật ảnh nền
+        if (heroBackground)
+            heroBackground.src = album.cover_image_url || album.image_url || 'placeholder.svg';
+
+        // Hiển thị tên album
+        if (albumTitleEl)
+            albumTitleEl.textContent = album.title || 'Unknown Album';
+
+        // Hiển thị tên nghệ sĩ (dùng dòng monthly listeners có sẵn để hiển thị)
+        if (monthlyListenersEl)
+            monthlyListenersEl.textContent = album.artist_name || 'Unknown Artist';
+
+        // Hiển thị nhãn “Album”
+        if (verifiedBadge) verifiedBadge.style.display = 'flex';
+        if (verifiedBadgeIcon) verifiedBadgeIcon.className = 'fas fa-record-vinyl';
         if (verifiedBadgeText) verifiedBadgeText.textContent = 'Album';
     }
+
 
     // Rendering album tracks
     function renderAlbumTracks(tracks) {
